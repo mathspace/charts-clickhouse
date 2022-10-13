@@ -16,6 +16,9 @@ spec:
           labels:
             job: clickhouse-backup
         spec:
+          {{- if .Values.clickhouse.backup.serviceAccountName }}
+          serviceAccountName: {{ .Values.clickhouse.backup.serviceAccountName }}
+          {{- end }}
           initContainers:
             #
             # Unfortunately we can't reuse the snippet _snippet-initContainers-wait-for-service-dependencies

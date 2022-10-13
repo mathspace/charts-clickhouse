@@ -1055,6 +1055,7 @@ clickhouse:
         value: "0"
       # Add settings for remote backup storage.
 
+    serviceAccountName: ""
 
 ## External clickhouse configuration
 ##

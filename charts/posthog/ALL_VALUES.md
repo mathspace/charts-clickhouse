@@ -318,6 +318,7 @@ The following table lists the configurable parameters of the PostHog chart and t
 | clickhouse.backup.env[3].value | string | `"true"` |  |
 | clickhouse.backup.env[4].name | string | `"BACKUPS_TO_KEEP_REMOTE"` |  |
 | clickhouse.backup.env[4].value | string | `"0"` |  |
+| clickhouse.backup.serviceAccountName | string | `""` | Service account name to use for backup pod |
 | externalClickhouse.host | string | `nil` | Host of the external cluster. This is required when clickhouse.enabled is false |
 | externalClickhouse.cluster | string | `nil` | Name of the external cluster to run DDL queries on. This is required when clickhouse.enabled is false |
 | externalClickhouse.database | string | `"posthog"` | Database name for the external cluster |
