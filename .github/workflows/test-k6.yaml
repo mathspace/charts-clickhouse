@@ -51,7 +51,7 @@ jobs:
             values: ci/values/k3s-plugin-server-split.yaml
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
 
       - name: Setup k3s
         run: |
@@ -59,7 +59,7 @@ jobs:
           mkdir ~/.kube
           sudo k3s kubectl config view --raw > ~/.kube/config
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         if: matrix.test == 'upgrade'
         with:
           ref: main
