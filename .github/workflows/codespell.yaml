@@ -6,6 +6,9 @@
 name: Codespell
 on:
   pull_request
+
+permissions: read-all
+
 jobs:
   codespell:
     name: Check for spelling errors
@@ -13,10 +16,10 @@ jobs:
     steps:
 
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
 
       - name: Codespell
-        uses: codespell-project/actions-codespell@master
+        uses: codespell-project/actions-codespell@cf810cf4cbd6cdefe6ef86e55b64d524a16654a7 # master
         with:
           check_filenames: true
           check_hidden: true

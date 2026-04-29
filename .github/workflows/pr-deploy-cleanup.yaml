@@ -1,12 +1,15 @@
 on:
   pull_request:
     types: [closed]
+
+permissions: read-all
+
 jobs:
   cleanup:
     name: Cleanup merged deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6
         id: permissions
         with:
           script: |
@@ -30,7 +33,7 @@ jobs:
             return member
 
       - name: Checkout
-        uses: actions/checkout@v2 # no way of getting the correct ref from the issue event, hence the below
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # no way of getting the correct ref from the issue event, hence the below
         if: ${{ steps.permissions.outputs.result == 'true' && contains(github.event.pull_request.labels.*.name, 'deploy') }} 
 
       - name: Declare variables that we can share across steps
@@ -46,12 +49,12 @@ jobs:
         if: ${{ steps.permissions.outputs.result == 'true' && contains(github.event.pull_request.labels.*.name, 'deploy') }} 
 
       - name: Install doctl to access k8s config
-        uses: digitalocean/action-doctl@v2
+        uses: digitalocean/action-doctl@3cb3953159719656269e044e0e24ca16dd2a690f # v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: mark environment as deactivated
-        uses: bobheadxi/deployments@v1
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1
         with:
           step: deactivate-env
           token: ${{ secrets.GITHUB_TOKEN }}

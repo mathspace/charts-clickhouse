@@ -15,6 +15,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+permissions: read-all
 jobs:
   test-kubetest-prep:
     runs-on: ubuntu-20.04
@@ -25,7 +26,7 @@ jobs:
       test-files: ${{ steps.test-files-generator.outputs.test-files }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         name: Checkout
 
       - run: echo "::set-output name=test-files::$(cd ./ci/kubetest/ && ls test_*.py | jq -R '[.]' |  jq -s -c 'add')\n"
@@ -45,7 +46,7 @@ jobs:
         test-file: ${{ fromJson(needs.test-kubetest-prep.outputs.test-files) }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         name: Checkout
 
       - name: Setup k3s
@@ -67,7 +68,7 @@ jobs:
             --maxfail=1
 
       - name: Emit namespace report
-        uses: jupyterhub/action-k8s-namespace-report@v1
+        uses: jupyterhub/action-k8s-namespace-report@ccc0e3c37860245f3906e3857df01b0a53f9c3f8 # v1
         if: always()
         with:
           namespace: posthog
