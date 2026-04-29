@@ -15,6 +15,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+permissions: read-all
 jobs:
   test-kubetest-prep:
     runs-on: ubuntu-20.04
@@ -67,7 +68,7 @@ jobs:
             --maxfail=1
 
       - name: Emit namespace report
-        uses: jupyterhub/action-k8s-namespace-report@v1
+        uses: jupyterhub/action-k8s-namespace-report@ccc0e3c37860245f3906e3857df01b0a53f9c3f8 # v1
         if: always()
         with:
           namespace: posthog

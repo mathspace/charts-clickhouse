@@ -10,6 +10,7 @@ on:
       - labeled
       - synchronize
 
+permissions: read-all
 jobs:
   deploy:
     name: Deploy Preview
@@ -39,7 +40,7 @@ jobs:
             return member
 
       - name: Checkout
-        uses: actions/checkout@v2 # no way of getting the correct ref from the issue event, hence the below
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # no way of getting the correct ref from the issue event, hence the below
         if: ${{ steps.permissions.outputs.result == 'true' && contains(github.event.pull_request.labels.*.name, 'deploy') }} 
 
       - name: Declare variables that we can share across steps
@@ -54,7 +55,7 @@ jobs:
         if: ${{ steps.permissions.outputs.result == 'true' && contains(github.event.pull_request.labels.*.name, 'deploy') }} 
 
       - name: start deployment
-        uses: bobheadxi/deployments@v1
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1
         id: deployment
         with:
           step: start
@@ -64,7 +65,7 @@ jobs:
         if: ${{ steps.permissions.outputs.result == 'true' && contains(github.event.pull_request.labels.*.name, 'deploy') }} 
 
       - name: Install doctl to access k8s config
-        uses: digitalocean/action-doctl@v2
+        uses: digitalocean/action-doctl@3cb3953159719656269e044e0e24ca16dd2a690f # v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         if: ${{ steps.permissions.outputs.result == 'true' && contains(github.event.pull_request.labels.*.name, 'deploy') }} 
@@ -88,7 +89,7 @@ jobs:
           PR_CLUSTER_ID: ${{ secrets.PR_CLUSTER_ID }} # probably not _SECRET_, but best kept out of the YAML
 
       - name: update deployment status
-        uses: bobheadxi/deployments@v1
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1
         with:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
